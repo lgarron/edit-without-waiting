@@ -11,3 +11,7 @@ lint:
 format:
 	cargo clippy --fix --allow-no-vcs
 	cargo fmt
+
+.PHONY: publish
+publish:
+	cargo publish
