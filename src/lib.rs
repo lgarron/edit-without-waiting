@@ -130,7 +130,7 @@ fn get_full_editor_cmd(s: String) -> Result<(PathBuf, Vec<String>)> {
     match get_full_editor_path(&path) {
         Ok(result) => Ok((result, args)),
         Err(_) if path.exists() => Ok((path, args)),
-        Err(_) => Err(Error::from(ErrorKind::NotFound))
+        Err(_) => Err(Error::from(ErrorKind::NotFound)),
     }
 }
 
@@ -358,4 +358,32 @@ pub fn edit_file<P: AsRef<Path>>(file: P) -> Result<()> {
             format!("editor '{}' exited with error: {}", full_command, status),
         ))
     }
+}
+
+/// Open an existing file (or create a new one, depending on the editor's behavior) in the
+/// [default editor] and *do not* wait for the editor to exit.
+///
+/// # Arguments
+///
+/// A [`Path`] to a file, new or existing, to open in the default editor.
+///
+/// # Returns
+///
+/// A Result is returned in case of errors finding or spawning the editor, but the contents of the
+/// file are not read and returned as in [`edit`] and [`edit_bytes`].
+///
+/// [default editor]: fn.get_editor.html
+/// [`Path`]: https://doc.rust-lang.org/std/path/struct.Path.html
+/// [`edit`]: fn.edit.html
+/// [`edit_bytes`]: fn.edit_bytes.html
+pub fn edit_file_without_waiting<P: AsRef<Path>>(file: P) -> Result<()> {
+    let (editor, args) = get_editor_args()?;
+    Command::new(&editor)
+        .args(&args)
+        .arg(file.as_ref())
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()?;
+    Ok(())
 }
