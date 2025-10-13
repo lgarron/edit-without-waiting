@@ -11,7 +11,7 @@ categories = [
   "text-editors",
 ]
 license = "CC0-1.0"
-version = "0.2.0"
+version = "0.2.1-dev"
 edition = "2018"
 
 [lib]
