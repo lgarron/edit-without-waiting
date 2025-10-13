@@ -1,10 +1,15 @@
 [package]
-name = "edit"
+name = "edit-without-waiting"
 description = "Open a file in the default text editor"
 authors = ["Milkey Mouse <milkeymouse@meme.institute>"]
-repository = "https://github.com/milkey-mouse/edit"
+repository = "https://github.com/lgarron/edit-without-wraiting"
 keywords = ["editor", "edit", "editing", "cli"]
-categories = ["command-line-interface", "config", "text-processing", "text-editors"]
+categories = [
+  "command-line-interface",
+  "config",
+  "text-processing",
+  "text-editors",
+]
 license = "CC0-1.0"
 version = "0.1.4"
 edition = "2018"
