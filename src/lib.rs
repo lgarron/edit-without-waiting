@@ -353,10 +353,10 @@ pub fn edit_file<P: AsRef<Path>>(file: P) -> Result<()> {
             )
         };
 
-        Err(Error::new(
-            ErrorKind::Other,
-            format!("editor '{}' exited with error: {}", full_command, status),
-        ))
+        Err(Error::other(format!(
+            "editor '{}' exited with error: {}",
+            full_command, status
+        )))
     }
 }
 
